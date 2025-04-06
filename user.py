@@ -1,4 +1,5 @@
 import hashlib
+from random import random, randint
 from brta import BRTA
 from vehicles import Bike, Car, Cng, Vehicle
 from ride_manager import uber
@@ -63,6 +64,7 @@ class Driver(User):
     def take_driving_test(self):
         result = license_authority.take_driving_test(self.email)
         if result == False:
+            self.valid_driver = False
             print('Sorry you Failed, try again..')
         else:
             self.license = result
@@ -72,13 +74,13 @@ class Driver(User):
         if self.valid_driver is True:
             if vehicle_type == 'car':
                 new_vehicle = Car(vehicle_type, license_plate, rate, self.email)
-                uber.add_a_vehicle(new_vehicle)
+                uber.add_a_vehicle(vehicle_type, new_vehicle)
             elif vehicle_type == 'bike':
                 new_vehicle = Bike(vehicle_type, license_plate, rate, self.email)
-                uber.add_a_vehicle(new_vehicle)
+                uber.add_a_vehicle(vehicle_type, new_vehicle)
             else:
                 new_vehicle = Cng(vehicle_type, license_plate, rate, self.email)
-                uber.add_a_vehicle(new_vehicle)
+                uber.add_a_vehicle(vehicle_type, new_vehicle)
         else:
             print('You are not a valid user')
     
@@ -87,13 +89,24 @@ class Driver(User):
         self.earning += fare
                     
 
-tanvir = User('Tanvir Ahammed', 'tanvir@gmail.com', 'manisman')
-tanvir.log_in('tanvir@gmail.com', 'manisman')
+rider_1 = Rider('rider1', 'rider1@gmail.com', 'rider1', randint(1, 100), 5000)
+rider_2 = Rider('rider2', 'rider2@gmail.com', 'rider1', randint(1, 100), 5000)
+rider_3 = Rider('rider3', 'rider3@gmail.com', 'rider1', randint(1, 100), 5000)
 
-omor = Driver('Omor Faruk', 'omor@gmail.com', 'omorisomor', 'Chandpur', '9078')
-print(omor.license)
-result = license_authority.validate_license(omor.email, omor.license)
-print(result)
-omor.take_driving_test()
-result = license_authority.validate_license(omor.email, omor.license)
-print(result)
+driver_1 = Driver('driver1', 'driver1@gmail.com', 'driver1', randint(1, 100), 5645)
+driver_1.take_driving_test()
+driver_1.register_a_vehicle('car', 1245, 10)
+
+driver_2 = Driver('driver2', 'driver2@gmail.com', 'driver2', randint(1, 100), 5645)
+driver_1.take_driving_test()
+driver_1.register_a_vehicle('car', 1245, 10)
+
+driver_3 = Driver('driver3', 'driver3@gmail.com', 'driver3', randint(1, 100), 5645)
+driver_1.take_driving_test()
+driver_1.register_a_vehicle('car', 2145, 10)
+
+driver_4 = Driver('driver4', 'driver4@gmail.com', 'driver4', randint(1, 100), 5645)
+driver_1.take_driving_test()
+driver_1.register_a_vehicle('car', 3245, 10)
+
+print(uber.get_available_cars())
