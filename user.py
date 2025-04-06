@@ -9,8 +9,9 @@ class User:
             file.write(f'{email} {pwd_encrypted}')
         file.close()
         print(self.name, 'user created')
+        
     @staticmethod
-    def log_in(self, email, password):
+    def log_in(email, password):
         stored_password = ''
         with open('users.txt', 'r') as file:
             lines = file.readlines()
@@ -25,6 +26,36 @@ class User:
             # print('Password Found', stored_password)
         else:
             print('Invalid User')   
+
+class Rider(User):
+    def __init__(self, name, email, password, location, balance):
+        super().__init__(name, email, password)
+        self.location = location
+        self.balance = balance
+    
+    # updated location
+    def set_location(self, location):
+        self.location = location
+    
+    def get_location(self):
+        return self.location
+    
+    def request_trip(self, destination):
+        pass
+    
+    def start_a_trip(self, fare):
+        self.balance -= fare
+
+class Driver(User):
+    def __init__(self, name, email, password, location, license):
+        super().__init__(name, email, password)
+        self.location = location
+        self.license = license
+        self.earning = 0
+    
+    def start_a_trip(self, destination, fare):
+        self.location = destination
+        self.earning += fare
                     
 
 tanvir = User('Tanvir Ahammed', 'tanvir@gmail.com', 'manisman')
