@@ -1,5 +1,5 @@
 import hashlib
-from random import random, randint
+from random import random, randint, choice
 import threading
 from brta import BRTA
 from vehicles import Bike, Car, Cng, Vehicle
@@ -119,15 +119,17 @@ rider_1 = Rider('rider1', 'rider1@gmail.com', 'rider1', randint(1, 30), 1000)
 rider_2 = Rider('rider2', 'rider2@gmail.com', 'rider1', randint(1, 30), 5000)
 rider_3 = Rider('rider3', 'rider3@gmail.com', 'rider1', randint(1, 30), 5000)
 
+vehicle_types = ['car', 'bike', 'cng']
+
 for i in range(1, 100):    
     driver1 = Driver(f'driver{i}', f'driver{i}@gmail.com', f'driver{i}', randint(1, 100), randint(1000, 9999))
     driver1.take_driving_test()
-    driver1.register_a_vehicle('car', randint(1000, 9999), 10)
+    driver1.register_a_vehicle(choice(vehicle_types), randint(1000, 9999), 10)
 
 
-uber.find_a_vehicle(rider_1, 'car', randint(1, 100))
-uber.find_a_vehicle(rider_2, 'car', randint(1, 100))
-uber.find_a_vehicle(rider_3, 'car', randint(1, 100))
+uber.find_a_vehicle(rider_1, choice(vehicle_types), randint(1, 100))
+uber.find_a_vehicle(rider_2, choice(vehicle_types), randint(1, 100))
+uber.find_a_vehicle(rider_3, choice(vehicle_types), randint(1, 100))
 
 print(rider_1.get_trip_history())
 print(uber.total_income())
