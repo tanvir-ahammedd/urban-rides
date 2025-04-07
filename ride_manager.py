@@ -13,7 +13,16 @@ class Ridemanager:
     def get_available_cars(self):
         return self.__available_cars
     
-    def find_a_vehicle(self):
-        pass
+    def find_a_vehicle(self, rider, vehicle_type, destination):
+        if vehicle_type == 'car':
+            if len(self.__available_cars) == 0:
+                print('Sorry, no car is available')
+                return False
+            else:
+                for car in self.__available_cars:
+                    print('Potential: ', rider.location, car.driver.location)
+                    if abs(rider.location - car.driver.location):
+                        print('Find a match for you!')
+                        return True
         
 uber = Ridemanager()

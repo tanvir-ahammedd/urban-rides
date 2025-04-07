@@ -73,13 +73,13 @@ class Driver(User):
     def register_a_vehicle(self, vehicle_type, license_plate, rate):
         if self.valid_driver is True:
             if vehicle_type == 'car':
-                new_vehicle = Car(vehicle_type, license_plate, rate, self.email)
+                new_vehicle = Car(vehicle_type, license_plate, rate, self)
                 uber.add_a_vehicle(vehicle_type, new_vehicle)
             elif vehicle_type == 'bike':
-                new_vehicle = Bike(vehicle_type, license_plate, rate, self.email)
+                new_vehicle = Bike(vehicle_type, license_plate, rate, self)
                 uber.add_a_vehicle(vehicle_type, new_vehicle)
             else:
-                new_vehicle = Cng(vehicle_type, license_plate, rate, self.email)
+                new_vehicle = Cng(vehicle_type, license_plate, rate, self)
                 uber.add_a_vehicle(vehicle_type, new_vehicle)
         else:
             print('You are not a valid user')
@@ -89,24 +89,25 @@ class Driver(User):
         self.earning += fare
                     
 
-rider_1 = Rider('rider1', 'rider1@gmail.com', 'rider1', randint(1, 100), 5000)
-rider_2 = Rider('rider2', 'rider2@gmail.com', 'rider1', randint(1, 100), 5000)
-rider_3 = Rider('rider3', 'rider3@gmail.com', 'rider1', randint(1, 100), 5000)
+rider_1 = Rider('rider1', 'rider1@gmail.com', 'rider1', randint(1, 30), 5000)
+rider_2 = Rider('rider2', 'rider2@gmail.com', 'rider1', randint(1, 30), 5000)
+rider_3 = Rider('rider3', 'rider3@gmail.com', 'rider1', randint(1, 30), 5000)
 
-driver_1 = Driver('driver1', 'driver1@gmail.com', 'driver1', randint(1, 100), 5645)
+driver_1 = Driver('driver1', 'driver1@gmail.com', 'driver1', randint(1, 30), 5645)
 driver_1.take_driving_test()
 driver_1.register_a_vehicle('car', 1245, 10)
 
-driver_2 = Driver('driver2', 'driver2@gmail.com', 'driver2', randint(1, 100), 5645)
-driver_1.take_driving_test()
-driver_1.register_a_vehicle('car', 1245, 10)
+driver_2 = Driver('driver2', 'driver2@gmail.com', 'driver2', randint(1, 30), 5645)
+driver_2.take_driving_test()
+driver_2.register_a_vehicle('car', 1245, 10)
 
-driver_3 = Driver('driver3', 'driver3@gmail.com', 'driver3', randint(1, 100), 5645)
-driver_1.take_driving_test()
-driver_1.register_a_vehicle('car', 2145, 10)
+driver_3 = Driver('driver3', 'driver3@gmail.com', 'driver3', randint(1, 30), 5645)
+driver_3.take_driving_test()
+driver_3.register_a_vehicle('car', 2145, 10)
 
-driver_4 = Driver('driver4', 'driver4@gmail.com', 'driver4', randint(1, 100), 5645)
-driver_1.take_driving_test()
-driver_1.register_a_vehicle('car', 3245, 10)
+driver_4 = Driver('driver4', 'driver4@gmail.com', 'driver4', randint(1, 30), 5645)
+driver_4.take_driving_test()
+driver_4.register_a_vehicle('car', 3245, 10)
 
 print(uber.get_available_cars())
+uber.find_a_vehicle(rider_1, 'car', 90)
