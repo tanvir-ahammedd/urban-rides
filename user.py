@@ -1,5 +1,6 @@
 import hashlib
 from random import random, randint
+import threading
 from brta import BRTA
 from vehicles import Bike, Car, Cng, Vehicle
 from ride_manager import uber
@@ -63,6 +64,7 @@ class Rider(User):
         pass
     
     def start_a_trip(self, fare, trip_info):
+        print(f'A trip started for {self.name}')
         self.balance -= fare
         self.__trip_history.append(trip_info)
     
@@ -106,7 +108,10 @@ class Driver(User):
     def start_a_trip(self, start, destination, fare, trip_info):
         self.location = destination
         self.earning += fare
-        self.vehicle.start_driving(start, destination)
+        #start thread
+        trip_thread = threading.Thread(target=self.vehicle.start_driving, args=(start, destination, ))
+        trip_thread.start()
+        # self.vehicle.start_driving(start, destination)
         self.__trip_history.append(trip_info)
                     
 
@@ -121,11 +126,8 @@ for i in range(1, 100):
 
 
 uber.find_a_vehicle(rider_1, 'car', randint(1, 100))
-uber.find_a_vehicle(rider_1, 'car', randint(1, 100))
-uber.find_a_vehicle(rider_1, 'car', randint(1, 100))
-uber.find_a_vehicle(rider_1, 'car', randint(1, 100))
-uber.find_a_vehicle(rider_1, 'car', randint(1, 100))
-uber.find_a_vehicle(rider_1, 'car', randint(1, 100))
+uber.find_a_vehicle(rider_2, 'car', randint(1, 100))
+uber.find_a_vehicle(rider_3, 'car', randint(1, 100))
 
 print(rider_1.get_trip_history())
 print(uber.total_income())

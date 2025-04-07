@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from asyncio import sleep
+from time import sleep
 
 class Vehicle(ABC):
     speed = {
@@ -33,7 +33,7 @@ class Car(Vehicle):
         distance = abs(start - destination)
         for i in range (0, distance):
             sleep(0.5)
-            print(f'Driving: {self.license_plate} current position {i} of {distance}')
+            print(f'Driving: {self.license_plate} current position {i} of {distance}\n')
         self.trip_finished()
     
     def trip_finished(self):
