@@ -20,15 +20,18 @@ class Ridemanager:
                 return False
             else:
                 for car in self.__available_cars:
-                    print('Potential: ', rider.location, car.driver.location)
-                    if abs(rider.location - car.driver.location):
+                    # print('Potential: ', rider.location, car.driver.location)
+                    if abs(rider.location - car.driver.location < 10):
+                        distance = abs(rider.location - destination)
+                        fare = distance * car.rate
+                        if fare > rider.balance:
+                            print("You don't have enough money", fare, rider.balance)
+                            return False
                         if car.status == 'available':
-                            print('8977')
                             car.status = 'unavailable'
-                            print('available cars', len(self.__available_cars))
                             self.__available_cars.remove(car)
-                            print('available cars', len(self.__available_cars))
-                            print('Find a match for you!')
+                            rider.start_a_trip(fare) 
+                            print('Find a match for', fare)
                             return True
         
 uber = Ridemanager()
