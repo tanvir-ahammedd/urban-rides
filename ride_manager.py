@@ -22,7 +22,13 @@ class Ridemanager:
                 for car in self.__available_cars:
                     print('Potential: ', rider.location, car.driver.location)
                     if abs(rider.location - car.driver.location):
-                        print('Find a match for you!')
-                        return True
+                        if car.status == 'available':
+                            print('8977')
+                            car.status = 'unavailable'
+                            print('available cars', len(self.__available_cars))
+                            self.__available_cars.remove(car)
+                            print('available cars', len(self.__available_cars))
+                            print('Find a match for you!')
+                            return True
         
 uber = Ridemanager()
